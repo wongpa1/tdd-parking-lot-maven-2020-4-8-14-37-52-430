@@ -12,4 +12,13 @@ public class ParkingBoyTest {
         ParkingTicket parkingTicket = parkingBoy.park(car);
         Assert.assertNotNull(parkingTicket);
     }
+
+    @Test
+    public void should_return_car_given_parking_ticket() {
+        ParkingBoy parkingBoy = new ParkingBoy();
+        ParkingTicket parkingTicket = new ParkingTicket();
+
+        Car car = parkingBoy.fetchCar(parkingTicket);
+        Assert.assertNotNull(car);
+    }
 }
