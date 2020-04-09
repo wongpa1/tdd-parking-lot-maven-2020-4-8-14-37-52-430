@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class ParkingBoyTest {
+
     @Test
     public void should_return_parking_ticket_given_car() {
         ParkingBoy parkingBoy = new ParkingBoy();
@@ -29,5 +30,17 @@ public class ParkingBoyTest {
 
         ParkingTicket parkingTicket = parkingBoy.park(car);
         Assert.assertEquals(car, parkingBoy.fetchCar(parkingTicket));
+    }
+
+    @Test
+    public void should_not_return_car_given_incorrect_ticket() {
+        ParkingBoy parkingBoy = new ParkingBoy();
+        Car carOne = new Car();
+        ParkingTicket parkingTicket = new ParkingTicket();
+
+        ParkingTicket parkingTicketForCarOne = parkingBoy.park(carOne);
+        parkingBoy.fetchCar(parkingTicket);
+
+        Assert.assertNotEquals(carOne, parkingBoy.fetchCar(parkingTicket));
     }
 }
