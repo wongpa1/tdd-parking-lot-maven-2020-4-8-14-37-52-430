@@ -3,7 +3,6 @@ package com.oocl;
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class ParkingLot {
 
     private static final int MAX_CAPACITY = 10;
