@@ -39,8 +39,17 @@ public class ParkingBoyTest {
         ParkingTicket parkingTicket = new ParkingTicket();
 
         ParkingTicket parkingTicketForCarOne = parkingBoy.park(carOne);
-        parkingBoy.fetchCar(parkingTicket);
-
         Assert.assertNotEquals(carOne, parkingBoy.fetchCar(parkingTicket));
+    }
+
+    @Test
+    public void should_not_return_car_given_used_ticket() {
+        ParkingBoy parkingBoy = new ParkingBoy();
+        Car carOne = new Car();
+
+        ParkingTicket parkingTicketForCarOne = parkingBoy.park(carOne);
+        parkingBoy.fetchCar(parkingTicketForCarOne);
+
+        Assert.assertNull(parkingBoy.fetchCar(parkingTicketForCarOne));
     }
 }
