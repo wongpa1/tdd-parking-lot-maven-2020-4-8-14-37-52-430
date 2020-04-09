@@ -15,4 +15,18 @@ public class ParkingBoyTest {
 
         Assert.assertEquals(carOne,FetchedCarOneFromParkingLot);
     }
+
+    @Test
+    public void should_fetch_car_from_parkingLot_by_parkingBoy() {
+        ParkingLot parkingLot = new ParkingLot();
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car carOne = new Car();
+
+        ParkingTicket parkingTicket = parkingLot.park(carOne);
+        Car carFetchFromParkingBoy = parkingBoy.fetch(parkingTicket);
+
+        Assert.assertEquals(carOne,carFetchFromParkingBoy);
+
+
+    }
 }
