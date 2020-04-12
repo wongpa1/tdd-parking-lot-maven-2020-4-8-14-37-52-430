@@ -1,21 +1,31 @@
 package com.oocl;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class ParkingBoy {
 
-    private ParkingLot parkingLot;
+    private List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
 
-    public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLot = parkingLot;
+    public ParkingBoy(ParkingLot... parkingLots) {
+        this.parkingLotList.addAll(Arrays.asList(parkingLots));
     }
 
     public ParkingTicket park(Car car) {
-        return this.parkingLot.park(car);
+        ParkingLot selectedParkingLot = this.parkingLotList.stream().filter(parkingLot -> parkingLot.isNotFull()).findFirst().get();
+        return selectedParkingLot.park(car);
     }
 
-    public Car fetch(ParkingTicket parkingTicket) {
+    public Car fetch(ParkingTicket parkingTicket) throws NoParkingTicketException, UnrecognizedParkingTicketException {
         if (parkingTicket == null) {
             throw new NoParkingTicketException("Please provide your parking ticket.");
         }
-        return this.parkingLot.fetchCar(parkingTicket);
+        for (ParkingLot parkingLot : parkingLotList) {
+            if (parkingLot.hasTicket(parkingTicket)) {
+                return parkingLot.fetchCar(parkingTicket);
+            }
+        }
+        throw new UnrecognizedParkingTicketException("Unrecognized Parking Ticket");
     }
 }

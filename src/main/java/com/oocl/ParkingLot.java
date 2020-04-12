@@ -7,35 +7,40 @@ public class ParkingLot {
 
     private static final int MAX_CAPACITY = 10;
     private Map<ParkingTicket, Car> ticketCarMap = new HashMap<ParkingTicket, Car>();
-    private int capacity;
+    private int occupied;
 
-    private boolean isNotFull(){
-        return capacity < MAX_CAPACITY;
+    public boolean isNotFull() {
+        return occupied < MAX_CAPACITY;
     }
 
-    public ParkingLot(int capacity) {
-        this.capacity = capacity;
+    public boolean hasTicket(ParkingTicket ticket) {
+        return ticketCarMap.containsKey(ticket);
+    }
+
+    public ParkingLot(int occupied) {
+        this.occupied = occupied;
     }
 
     public ParkingLot() {
-        this.capacity = 0;
+        this.occupied = ticketCarMap.size();
     }
 
-    public ParkingTicket park(Car car) {
+    public ParkingTicket park(Car car) throws NoParkingSpaceException {
         if (isNotFull()) {
             ParkingTicket parkingTicket = new ParkingTicket();
             ticketCarMap.put(parkingTicket, car);
-            capacity++;
+            occupied++;
             return parkingTicket;
+        } else {
+            throw new NoParkingSpaceException("Not enough position.");
         }
-        return null;
     }
 
     public Car fetchCar(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException {
         Car car = ticketCarMap.remove(parkingTicket);
-        if(car == null){
+        if (car == null) {
             throw new UnrecognizedParkingTicketException("Unrecognized Parking Ticket");
         }
-        return ticketCarMap.remove(parkingTicket);
+        return car;
     }
 }
