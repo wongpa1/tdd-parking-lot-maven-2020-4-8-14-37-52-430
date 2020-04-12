@@ -22,6 +22,10 @@ public class ParkingLot {
         return maxCapacity - occupied;
     }
 
+    public double positionRate() {
+        return spaceLeft() / maxCapacity;
+    }
+
     public ParkingLot(int occupied) {
         this.occupied = occupied;
         this.maxCapacity = DEFAULT_MAX_CAPACITY;
