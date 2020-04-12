@@ -9,6 +9,10 @@ public class ParkingLot {
     private Map<ParkingTicket, Car> ticketCarMap = new HashMap<ParkingTicket, Car>();
     private int capacity;
 
+    private boolean isNotFull(){
+        return capacity < MAX_CAPACITY;
+    }
+
     public ParkingLot(int capacity) {
         this.capacity = capacity;
     }
@@ -18,7 +22,7 @@ public class ParkingLot {
     }
 
     public ParkingTicket park(Car car) {
-        if (capacity < MAX_CAPACITY) {
+        if (isNotFull()) {
             ParkingTicket parkingTicket = new ParkingTicket();
             ticketCarMap.put(parkingTicket, car);
             capacity++;
@@ -27,7 +31,11 @@ public class ParkingLot {
         return null;
     }
 
-    public Car fetchCar(ParkingTicket parkingTicket) {
+    public Car fetchCar(ParkingTicket parkingTicket) throws UnrecognizedParkingTicketException {
+        Car car = ticketCarMap.remove(parkingTicket);
+        if(car == null){
+            throw new UnrecognizedParkingTicketException("Unrecognized Parking Ticket");
+        }
         return ticketCarMap.remove(parkingTicket);
     }
 }
