@@ -19,4 +19,17 @@ public class SmartParkingBoy extends ParkingBoy {
         ParkingLot selectedParkingLot = this.parkingLotList.stream().max(comparator).get();
         return selectedParkingLot.park(car);
     }
+
+    @Override
+    public Car fetch(ParkingTicket parkingTicket) throws NoParkingTicketException, UnrecognizedParkingTicketException {
+        if (parkingTicket == null) {
+            throw new NoParkingTicketException("Please provide your parking ticket.");
+        }
+        for (ParkingLot parkingLot : parkingLotList) {
+            if (parkingLot.hasTicket(parkingTicket)) {
+                return parkingLot.fetchCar(parkingTicket);
+            }
+        }
+        throw new UnrecognizedParkingTicketException("Unrecognized Parking Ticket");
+    }
 }
