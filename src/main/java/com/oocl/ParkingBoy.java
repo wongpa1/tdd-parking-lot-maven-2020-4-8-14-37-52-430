@@ -13,6 +13,9 @@ public class ParkingBoy {
     }
 
     public Car fetch(ParkingTicket parkingTicket) {
+        if (parkingTicket == null) {
+            throw new NoParkingTicketException("Please provide your parking ticket.");
+        }
         return this.parkingLot.fetchCar(parkingTicket);
     }
 }
