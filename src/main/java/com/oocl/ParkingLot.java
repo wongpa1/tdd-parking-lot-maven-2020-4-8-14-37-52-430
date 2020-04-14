@@ -1,5 +1,8 @@
 package com.oocl;
 
+import exception.NoParkingSpaceException;
+import exception.UnrecognizedParkingTicketException;
+
 import java.util.HashMap;
 import java.util.Map;
 

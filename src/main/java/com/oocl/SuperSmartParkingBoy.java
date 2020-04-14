@@ -1,5 +1,7 @@
 package com.oocl;
 
+import exception.NoParkingSpaceException;
+
 import java.util.Comparator;
 import java.util.Optional;
 

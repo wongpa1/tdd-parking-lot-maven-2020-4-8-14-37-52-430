@@ -1,5 +1,8 @@
 package com.oocl;
 
+import exception.NoParkingSpaceException;
+import exception.NoParkingTicketException;
+import exception.UnrecognizedParkingTicketException;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
