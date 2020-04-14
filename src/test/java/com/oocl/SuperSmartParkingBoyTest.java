@@ -98,18 +98,4 @@ public class SuperSmartParkingBoyTest {
 
         supersmartparkingBoy.park(carOne);
     }
-
-    @Test
-    public void should_park_car_to_parkingLotTwo_by_super_smart_parkingBoy_when_parkingLotOne_is_full() {
-
-        ParkingLot parkingLotOne = new ParkingLot(10,10);
-        ParkingLot parkingLotTwo = new ParkingLot(1,10);
-        SuperSmartParkingBoy supersmartparkingBoy = new SuperSmartParkingBoy(parkingLotOne, parkingLotTwo);
-        Car carOne = new Car();
-
-        ParkingTicket parkingTicketForCarOne = supersmartparkingBoy.park(carOne);
-        Car FetchedCarOneFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarOne);
-
-        Assert.assertEquals(carOne, FetchedCarOneFromParkingLotTwo);
-    }
 }
