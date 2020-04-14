@@ -6,22 +6,32 @@ import java.util.List;
 
 public class ParkingBoy {
 
-    private List<ParkingLot> parkingLotList = new ArrayList<ParkingLot>();
+    private List<ParkingLot> parkingLots = new ArrayList<>();
 
-    public ParkingBoy(ParkingLot... parkingLots) {
-        this.parkingLotList.addAll(Arrays.asList(parkingLots));
+    public List<ParkingLot> getParkingLots() {
+        return parkingLots;
     }
 
-    public ParkingTicket park(Car car) {
-        ParkingLot selectedParkingLot = this.parkingLotList.stream().filter(parkingLot -> parkingLot.isNotFull()).findFirst().get();
-        return selectedParkingLot.park(car);
+    public ParkingBoy(ParkingLot... parkingLots) {
+        this.parkingLots.addAll(Arrays.asList(parkingLots));
+    }
+
+    public ParkingTicket park(Car car) throws NoParkingSpaceException {
+        //TODO: Check isPresent
+        if(this.parkingLots.stream().anyMatch(ParkingLot::isNotFull)) {
+            ParkingLot selectedParkingLot = this.parkingLots.stream().filter(ParkingLot::isNotFull).findFirst().get();
+            return selectedParkingLot.park(car);
+        }
+        else{
+            throw new NoParkingSpaceException("Not enough position.");
+        }
     }
 
     public Car fetch(ParkingTicket parkingTicket) throws NoParkingTicketException, UnrecognizedParkingTicketException {
         if (parkingTicket == null) {
             throw new NoParkingTicketException("Please provide your parking ticket.");
         }
-        for (ParkingLot parkingLot : parkingLotList) {
+        for (ParkingLot parkingLot : parkingLots) {
             if (parkingLot.hasTicket(parkingTicket)) {
                 return parkingLot.fetchCar(parkingTicket);
             }

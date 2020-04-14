@@ -6,8 +6,9 @@ import java.util.Map;
 public class ParkingLot {
 
     public static final int DEFAULT_MAX_CAPACITY = 10;
-    private Map<ParkingTicket, Car> ticketCarMap = new HashMap<ParkingTicket, Car>();
+    private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
     private int maxCapacity;
+    //TODO: delete occupied
     private int occupied;
 
     public boolean isNotFull() {
@@ -19,11 +20,11 @@ public class ParkingLot {
     }
 
     public int spaceLeft() {
-        return maxCapacity - occupied;
+        return maxCapacity - ticketCarMap.size();
     }
 
     public double positionRate() {
-        return this.spaceLeft() / maxCapacity;
+        return (double) spaceLeft() / maxCapacity;
     }
 
     public ParkingLot(int occupied) {
@@ -37,7 +38,6 @@ public class ParkingLot {
     }
 
     public ParkingLot() {
-        this.occupied = ticketCarMap.size();
         this.maxCapacity = 10;
     }
 
@@ -45,7 +45,6 @@ public class ParkingLot {
         if (isNotFull()) {
             ParkingTicket parkingTicket = new ParkingTicket();
             ticketCarMap.put(parkingTicket, car);
-            occupied++;
             return parkingTicket;
         } else {
             throw new NoParkingSpaceException("Not enough position.");
