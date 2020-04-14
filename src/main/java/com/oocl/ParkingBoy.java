@@ -3,6 +3,7 @@ package com.oocl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 public class ParkingBoy {
 
@@ -17,12 +18,10 @@ public class ParkingBoy {
     }
 
     public ParkingTicket park(Car car) throws NoParkingSpaceException {
-        //TODO: Check isPresent
-        if(this.parkingLots.stream().anyMatch(ParkingLot::isNotFull)) {
-            ParkingLot selectedParkingLot = this.parkingLots.stream().filter(ParkingLot::isNotFull).findFirst().get();
-            return selectedParkingLot.park(car);
-        }
-        else{
+        Optional<ParkingLot> selectedParkingLot = this.parkingLots.stream().filter(ParkingLot::isNotFull).findFirst();
+        if (selectedParkingLot.isPresent()) {
+            return selectedParkingLot.get().park(car);
+        } else {
             throw new NoParkingSpaceException("Not enough position.");
         }
     }

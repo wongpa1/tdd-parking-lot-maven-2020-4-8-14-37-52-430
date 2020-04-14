@@ -8,11 +8,9 @@ public class ParkingLot {
     public static final int DEFAULT_MAX_CAPACITY = 10;
     private Map<ParkingTicket, Car> ticketCarMap = new HashMap<>();
     private int maxCapacity;
-    //TODO: delete occupied
-    private int occupied;
 
     public boolean isNotFull() {
-        return occupied < maxCapacity;
+        return ticketCarMap.size() < maxCapacity;
     }
 
     public boolean hasTicket(ParkingTicket ticket) {
@@ -27,18 +25,12 @@ public class ParkingLot {
         return (double) spaceLeft() / maxCapacity;
     }
 
-    public ParkingLot(int occupied) {
-        this.occupied = occupied;
-        this.maxCapacity = DEFAULT_MAX_CAPACITY;
-    }
-
-    public ParkingLot(int occupied, int maxCapacity) {
-        this.occupied = occupied;
+    public ParkingLot(int maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 
     public ParkingLot() {
-        this.maxCapacity = 10;
+        this.maxCapacity = DEFAULT_MAX_CAPACITY;
     }
 
     public ParkingTicket park(Car car) throws NoParkingSpaceException {

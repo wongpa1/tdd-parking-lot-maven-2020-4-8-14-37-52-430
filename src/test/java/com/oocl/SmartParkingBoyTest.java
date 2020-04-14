@@ -13,22 +13,24 @@ public class SmartParkingBoyTest {
     @Test
     public void should_park_car_to_parkingLot_by_smart_parkingBoy_when_parkingLot_has_space() {
 
-        ParkingLot parkingLotOne = new ParkingLot(5, 10);
-        ParkingLot parkingLotTwo = new ParkingLot(7, 10);
+        ParkingLot parkingLotOne = new ParkingLot();
+        ParkingLot parkingLotTwo = new ParkingLot();
         SmartParkingBoy smartparkingBoy = new SmartParkingBoy(parkingLotOne, parkingLotTwo);
         Car carOne = new Car();
+        Car carTwo = new Car();
 
-        ParkingTicket parkingTicketForCarOne = smartparkingBoy.park(carOne);
-        Car FetchedCarFromParkingLotOne = parkingLotOne.fetchCar(parkingTicketForCarOne);
+        parkingLotOne.park(carOne);
+        ParkingTicket parkingTicketForCarTwo = smartparkingBoy.park(carTwo);
+        Car FetchedCarFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarTwo);
 
-        Assert.assertEquals(carOne, FetchedCarFromParkingLotOne);
+        Assert.assertEquals(carTwo, FetchedCarFromParkingLotTwo);
     }
 
     @Test
     public void should_fetch_car_by_smart_parkingBoy() {
 
-        ParkingLot parkingLotOne = new ParkingLot(5, 10);
-        ParkingLot parkingLotTwo = new ParkingLot(7, 10);
+        ParkingLot parkingLotOne = new ParkingLot();
+        ParkingLot parkingLotTwo = new ParkingLot();
         SmartParkingBoy smartparkingBoy = new SmartParkingBoy(parkingLotOne, parkingLotTwo);
         Car carOne = new Car();
 
@@ -92,7 +94,7 @@ public class SmartParkingBoyTest {
         expectedException.expect(NoParkingSpaceException.class);
         expectedException.expectMessage("Not enough position.");
 
-        ParkingLot parkingLot = new ParkingLot(10);
+        ParkingLot parkingLot = new ParkingLot(0);
         SmartParkingBoy smartparkingBoy = new SmartParkingBoy(parkingLot);
         Car carOne = new Car();
 
@@ -102,14 +104,16 @@ public class SmartParkingBoyTest {
     @Test
     public void should_park_car_to_parkingLotTwo_by_smart_parkingBoy_when_parkingLotOne_is_full() {
 
-        ParkingLot parkingLotOne = new ParkingLot(10);
-        ParkingLot parkingLotTwo = new ParkingLot(5);
-        SmartParkingBoy smartparkingBoy = new SmartParkingBoy(parkingLotOne, parkingLotTwo);
+        ParkingLot parkingLotOne = new ParkingLot(1);
+        ParkingLot parkingLotTwo = new ParkingLot();
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotOne, parkingLotTwo);
         Car carOne = new Car();
+        Car carTwo = new Car();
 
-        ParkingTicket parkingTicketForCarOne = smartparkingBoy.park(carOne);
-        Car FetchedCarOneFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarOne);
+        parkingLotOne.park(carOne);
+        ParkingTicket parkingTicketForCarTwo = smartParkingBoy.park(carTwo);
+        Car FetchedCarOneFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarTwo);
 
-        Assert.assertEquals(carOne, FetchedCarOneFromParkingLotTwo);
+        Assert.assertEquals(carTwo, FetchedCarOneFromParkingLotTwo);
     }
 }

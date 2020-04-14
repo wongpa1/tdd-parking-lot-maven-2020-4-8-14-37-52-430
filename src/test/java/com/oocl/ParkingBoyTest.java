@@ -62,7 +62,7 @@ public class ParkingBoyTest {
         expectedException.expect(NoParkingSpaceException.class);
         expectedException.expectMessage("Not enough position.");
 
-        ParkingLot parkingLot = new ParkingLot(10);
+        ParkingLot parkingLot = new ParkingLot(0);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
         Car carOne = new Car();
 
@@ -72,14 +72,16 @@ public class ParkingBoyTest {
     @Test
     public void should_park_car_to_parkingLotTwo_by_parkingBoy_when_parkingLotOne_is_full() {
 
-        ParkingLot parkingLotOne = new ParkingLot(10);
-        ParkingLot parkingLotTwo = new ParkingLot(5);
+        ParkingLot parkingLotOne = new ParkingLot(1);
+        ParkingLot parkingLotTwo = new ParkingLot();
         ParkingBoy parkingBoy = new ParkingBoy(parkingLotOne, parkingLotTwo);
         Car carOne = new Car();
+        Car carTwo = new Car();
 
-        ParkingTicket parkingTicketForCarOne = parkingBoy.park(carOne);
-        Car FetchedCarOneFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarOne);
+        parkingLotOne.park(carOne);
+        ParkingTicket parkingTicketForCarTwo = parkingBoy.park(carTwo);
+        Car FetchedCarFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarTwo);
 
-        Assert.assertEquals(carOne, FetchedCarOneFromParkingLotTwo);
+        Assert.assertEquals(carTwo, FetchedCarFromParkingLotTwo);
     }
 }

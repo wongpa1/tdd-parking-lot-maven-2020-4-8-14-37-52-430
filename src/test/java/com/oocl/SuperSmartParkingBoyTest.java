@@ -13,22 +13,24 @@ public class SuperSmartParkingBoyTest {
     @Test
     public void should_park_car_to_parkingLot_by_super_smart_parkingBoy_when_parkingLot_has_higher_position_rate() {
 
-        ParkingLot parkingLotOne = new ParkingLot(7, 10);
-        ParkingLot parkingLotTwo = new ParkingLot(5, 10);
+        ParkingLot parkingLotOne = new ParkingLot();
+        ParkingLot parkingLotTwo = new ParkingLot();
         SuperSmartParkingBoy supersmartparkingBoy = new SuperSmartParkingBoy(parkingLotOne, parkingLotTwo);
         Car carOne = new Car();
+        Car carTwo = new Car();
 
-        ParkingTicket parkingTicketForCarOne = supersmartparkingBoy.park(carOne);
-        Car FetchedCarFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarOne);
+        parkingLotOne.park(carOne);
+        ParkingTicket parkingTicketForCarTwo = supersmartparkingBoy.park(carTwo);
+        Car FetchedCarFromParkingLotTwo = parkingLotTwo.fetchCar(parkingTicketForCarTwo);
 
-        Assert.assertEquals(carOne, FetchedCarFromParkingLotTwo);
+        Assert.assertEquals(carTwo, FetchedCarFromParkingLotTwo);
     }
 
     @Test
     public void should_fetch_car_by_super_smart_parkingBoy() {
 
-        ParkingLot parkingLotOne = new ParkingLot(5, 10);
-        ParkingLot parkingLotTwo = new ParkingLot(7, 10);
+        ParkingLot parkingLotOne = new ParkingLot();
+        ParkingLot parkingLotTwo = new ParkingLot();
         SuperSmartParkingBoy supersmartparkingBoy = new SuperSmartParkingBoy(parkingLotOne, parkingLotTwo);
         Car carOne = new Car();
 
@@ -92,7 +94,7 @@ public class SuperSmartParkingBoyTest {
         expectedException.expect(NoParkingSpaceException.class);
         expectedException.expectMessage("Not enough position.");
 
-        ParkingLot parkingLot = new ParkingLot(10);
+        ParkingLot parkingLot = new ParkingLot(0);
         SuperSmartParkingBoy supersmartparkingBoy = new SuperSmartParkingBoy(parkingLot);
         Car carOne = new Car();
 
