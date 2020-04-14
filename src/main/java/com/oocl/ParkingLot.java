@@ -23,7 +23,7 @@ public class ParkingLot {
     }
 
     public double positionRate() {
-        return spaceLeft() / maxCapacity;
+        return this.spaceLeft() / maxCapacity;
     }
 
     public ParkingLot(int occupied) {
